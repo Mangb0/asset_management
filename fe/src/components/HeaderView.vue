@@ -6,7 +6,7 @@
           <h1>Asset_Management</h1>
         </a>
 
-        <div class="text-end col-12" v-if="!$store.state.account.userno">
+        <div class="text-end col-12" v-if="!state.account.userno">
           <button type="button" class="btn btn-outline-light me-2" @click="moveTo()">Login</button>
           <button type="button" class="btn btn-warning">Sign-up</button>
         </div>
@@ -19,31 +19,50 @@
 </template>
 
 <script>
-import store from "@/store/store";
-import router from "@/router/index";
 import axios from "axios";
+import { reactive } from "vue";
+// import store from "@/store/store";
+import router from "@/router/index";
 
 export default ({
-    setup() {
-        const logout = () => {
-            axios.delete("/api/account").then(() => {
-                alert("로그아웃되었습니다.");
-                store.commit('setAccount', 0);
-            });
-            router.push('/');
-        }
-
-        const moveTo = () => {
-            router.push('/login');
-        }
-        
-        axios.get("/api/account").then((res) => {
-        store.commit('setAccount', res.data); 
-        console.log(res.data);
+  setup() {
+    const state = reactive({
+      account: {
+        userno: null,
+        name: "",
+        money: null
+      },
+      form: {
+        loginId: "",
+        loginPw: ""
+      }
+    });
+  
+    const logout = () => {
+        axios.delete("/api/account").then(() => {
+            alert("로그아웃되었습니다.");
+            // store.commit('setAccount', 0);
+            state.account = 0;
         });
+        router.push('/');
+    }
 
-        return { logout, moveTo };
-    },
+    const moveTo = () => {
+        router.push('/login');
+    }
+    
+    // 로그인 해결까지 꺼두기
+    // axios.get("/api/account").then((res) => { 
+    // store.commit('setAccount', res.data); 
+    // console.log(res.data);
+    // });
+      
+    axios.get("/api/account").then((res) => {
+      state.account = res.data;
+    });
+
+    return { state, logout, moveTo };
+  },
 })
 </script>
 
