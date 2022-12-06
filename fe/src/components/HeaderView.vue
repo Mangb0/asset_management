@@ -6,7 +6,7 @@
           <h1>Asset_Management</h1>
         </a>
 
-        <div class="text-end col-12" v-if="!state.account.userno">
+        <div class="text-end col-12" v-if="!$store.state.account.userno">
           <button type="button" class="btn btn-outline-light me-2" @click="moveTo()">Login</button>
           <button type="button" class="btn btn-warning">Sign-up</button>
         </div>
@@ -21,7 +21,7 @@
 <script>
 import axios from "axios";
 import { reactive } from "vue";
-// import store from "@/store/store";
+import store from "@/store/store";
 import router from "@/router/index";
 
 export default ({
@@ -41,7 +41,8 @@ export default ({
     const logout = () => {
         axios.delete("/api/account").then(() => {
             alert("로그아웃되었습니다.");
-            // store.commit('setAccount', 0);
+            store.commit('setAccount', 0);
+            sessionStorage.setItem("userno", 0);
             state.account = 0;
         });
         router.push('/');

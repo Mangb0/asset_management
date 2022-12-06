@@ -1,7 +1,7 @@
 <template>
   <div class="form-signin w-100 m-auto">  
     <div>
-      <div v-if="state.account.userno">{{ state.account.userno }} {{ state.account.name }}님 안녕하세요 {{ state.account.money }}</div>
+      <div v-if="$store.state.account.userno">{{ $store.state.account.userno }} {{ $store.state.account.name }}님 안녕하세요 {{ $store.state.account.money }}</div>
       <div v-else>
         <form>
           <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
@@ -31,7 +31,7 @@
 <script>
 import axios from "axios";
 import { reactive } from "vue";
-// import store from "@/store/store"; store 기능
+import store from "@/store/store"; // store 기능
 // import router from "@/router/index";
 export default {
   setup() {
@@ -51,10 +51,13 @@ export default {
 
       axios.post("/api/account", state.form).then((res) => {
         alert("로그인 성공");
-        state.account = res.data;
+        // state.account = res.data; 필요 없어짐
         // router.push("/");
-        // store기능
-        // store.commit('setAccount', res.data);
+        // store기능/
+        store.commit('setAccount', res.data);
+        sessionStorage.setItem("userno", JSON.stringify(res.data));
+        // console.log(state.account);
+        console.log(store.state.account.userno);
       }).catch(() => {
         alert("로그인 실패");
       });
@@ -63,9 +66,11 @@ export default {
     
     axios.get("/api/account").then((res) => {
       state.account = res.data;
+      console.log(res.data);
+      
     });
 
-    return { state, submit };
+    return { submit, state };
   }
 };
 </script>

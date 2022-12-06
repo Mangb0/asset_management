@@ -13,7 +13,17 @@
 
 import FooterView from './components/FooterView.vue';
 import HeaderView from './components/HeaderView.vue';
+import store from "@/store/store";
+
 export default {
+  setup() {
+    const userno = sessionStorage.getItem("userno");
+
+    if(userno) {
+      store.commit("setAccount", JSON.parse(userno));
+    }
+  },
+
   components: { HeaderView, FooterView }
 }
 </script>
