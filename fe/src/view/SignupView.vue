@@ -5,14 +5,22 @@
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="state.form.loginId">
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="state.form.id">
           <label for="floatingInput">Email address</label>
+          <button class="aa" @click="check()">Check</button>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.loginPw">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.pw">
           <label for="floatingPassword">Password</label>
         </div>
-
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="state.form.pw">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingName" placeholder="name" v-model="state.form.name">
+          <label for="floatingPassword">Name</label>
+        </div>
         <div class="checkbox mb-3">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
@@ -35,24 +43,31 @@ export default {
     const state = reactive({
       account: {
         userno: null,
-        name: "",
         money: null
       },
       form: {
-        loginId: "",
-        loginPw: ""
+        id: "",
+        pw: "",
+        name: ""
       }
     });
-
+    const check = () => {
+      axios.post("/api/checkId", state.form).then((res) => {
+        alert("사용할 수 있는 아이디입니다");
+        state.account = res.data;
+      }).catch(() => {
+        alert("중복되는 아이디가 존재합니다");
+      });
+    }
     const submit = () => {
 
-      axios.post("/api/account", state.form).then((res) => {
-        alert("로그인 성공");
+      axios.post("/api/signup", state.form).then((res) => {
+        alert("회원가입 성공");
         state.account = res.data;
         store.commit('setAccount', res.data);
-        router.push({path: "/"});
+        router.push({path: "/login"});
       }).catch(() => {
-        alert("로그인 실패");
+        alert("회원가입 실패");
       });
     };
 
@@ -60,7 +75,7 @@ export default {
       store.commit('setAccount', res.data); 
     });
 
-    return { state, submit };
+    return { state, submit, check };
   }
 };
 </script>
@@ -75,13 +90,13 @@ export default {
   z-index: 2;
 }
 
-.form-signin input[type="email"] {
+.form-signin {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="password"] {
+.form-signin input[type="text"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;

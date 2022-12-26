@@ -19,6 +19,17 @@ const members = [ // user 예시
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+app.post("/api/checkId", async (req, res) => {
+    const result = await database.run(`SELECT id FROM user WHERE id=?`, [req.body.id]);
+    console.log(typeof result);
+    console.log(result);
+    if(result) {
+        res.sendStatus(200);
+    }else {
+        res.sendStatus(401);
+    }
+})
+
 app.get('/api/account', (req, res) => {
     // 쿠키 확인
     // if(req.cookies && req.cookies.account) {
@@ -44,13 +55,41 @@ app.get('/api/account', (req, res) => {
     }
 });
 
+app.post("/api/signup", async (req, res) => {
+    
+    await database.run(`INSERT INTO user (id, pw, name) VALUES (?, ?, ?)`, [req.body.id, req.body.pw, req.body.name]);
+
+    const user = await database.run(`SELECT * FROM user WHERE id=?&&pw=?`, [req.body.id, req.body.pw]);
+    
+    if(user) {
+        // jwt토큰
+        const token = jwt.sign({
+            userno: user[0].userno,
+            name: user[0].name,
+            money: user[0].money
+        }, "secretkey", {
+            expiresIn: "15m",
+            issuer: "backend"
+        });
+        res.cookie("token", token);
+
+        // 쿠키
+        // res.cookie("account", JSON.stringify(user[0]));
+
+        res.send(user[0]);
+    } else {
+        res.sendStatus(404);
+    }
+})
+
+
 app.post('/api/account', async (req, res) => {
     const loginId = req.body.loginId;
     const loginPw = req.body.loginPw;
     
     const user = await database.run(`SELECT * FROM user WHERE id=?&&pw=?`, [loginId, loginPw]);
     
-    if(user) {
+    if(user[0]) {
         // jwt토큰
         const token = jwt.sign({
             userno: user[0].userno,
@@ -72,7 +111,7 @@ app.post('/api/account', async (req, res) => {
 });
 
 app.get('/api/assets', async (req, res) => {
-    const result = await database.run("SELECT * FROM wallet");
+    const result = await database.run(`SELECT * FROM wallet WHERE userno=(?)`, [1]);
     res.send(result);
 });
 

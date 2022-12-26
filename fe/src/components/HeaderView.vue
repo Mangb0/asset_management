@@ -7,8 +7,8 @@
         </a>
 
         <div class="text-end col-12" v-if="!$store.state.account.userno">
-          <button type="button" class="btn btn-outline-light me-2" @click="moveTo()">Login</button>
-          <button type="button" class="btn btn-warning">Sign-up</button>
+          <button type="button" class="btn btn-outline-light me-2" @click="moveTo(0)">Login</button>
+          <button type="button" class="btn btn-warning" @click="moveTo(1)">Sign-up</button>
         </div>
         <div class="text-end col-12" v-else>
           <button type="button" class="btn btn-outline-light me-2" @click="logout()">Logout</button>
@@ -48,8 +48,10 @@ export default ({
         router.push('/');
     }
 
-    const moveTo = () => {
+    const moveTo = (signal) => {
+      if(signal == 0)
         router.push('/login');
+      else router.push('/signup');
     }
     
     // 로그인 해결까지 꺼두기
