@@ -23,7 +23,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
                     <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"/>
                 </svg>
-                <h2 class="fw-normal">Ranking</h2>
+                <h2 class="fw-normal"><div v-if="!$store.state.account.userno">login 필요</div><div v-else>Asset</div></h2>
                 <p><a class="btn btn-secondary" @click="moveTo(0)">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">

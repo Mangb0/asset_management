@@ -1,13 +1,19 @@
 <template>
-    <div class="asset">
+    <div class="asset" v-if="$store.state.account.userno">
         <div class="act">
             <button class="btn btn-primary" @click="add()">+ 추가</button>
             <button class="btn btn-primary" @click="pagelink()">+ 이동</button>
 
         </div>
+        <div>
+            현재 자산 : {{ state.account.money }}
+        </div>
         <ul>
             <li v-for="d in state.data" :key="d.changeno" @click="edit(d.changeno)">{{ d.money }}</li>
         </ul>
+    </div>
+    <div v-else>
+        <div>로그인 후 확인하실 수 있습니다.</div>
     </div>
 </template>
 
@@ -17,6 +23,11 @@ import axios from "axios";
 export default {
     setup() {
         const state = reactive({
+            account: {
+                userno: null,
+                name: "",
+                money: null
+            },
             data: []
         });
 
@@ -45,6 +56,10 @@ export default {
         axios.get("/api/assets").then((res) => {
             state.data = res.data;
         });
+
+        axios.get("/api/account").then((res) => {
+            state.account = res.data;
+        })
 
         return { state, add, edit, pagelink };
     },

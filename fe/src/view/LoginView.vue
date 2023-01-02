@@ -32,7 +32,7 @@
 import axios from "axios";
 import { reactive } from "vue";
 import store from "@/store/store"; // store 기능
-// import router from "@/router/index";
+import router from "@/router/index";
 export default {
   setup() {
     const state = reactive({
@@ -58,9 +58,12 @@ export default {
         sessionStorage.setItem("userno", JSON.stringify(res.data));
         // console.log(state.account);
         console.log(store.state.account.userno);
+        
+        router.push('/');
       }).catch(() => {
         alert("로그인 실패");
       });
+
 
     };
     

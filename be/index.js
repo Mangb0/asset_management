@@ -111,7 +111,21 @@ app.post('/api/account', async (req, res) => {
 });
 
 app.get('/api/assets', async (req, res) => {
-    const result = await database.run(`SELECT * FROM wallet WHERE userno=(?)`, [1]);
+    let userno;
+    if(req.cookies && req.cookies.token) {
+        jwt.verify(req.cookies.token, "secretkey", (err, decoded) => {
+            if(err){
+                return res.sendStatus(401);
+            }
+
+            console.log(decoded.userno);
+            userno = decoded.userno;
+        });
+    }
+    else {
+        return res.sendStatus(401);
+    }
+    const result = await database.run(`SELECT * FROM wallet WHERE userno=(?)`, [userno]);
     res.send(result);
 });
 
