@@ -2,7 +2,7 @@
     <div class="popup">
         <div class="popup-inner">
             <slot />
-            <button class="popup-close">
+            <button class="popup-close" @click="TogglePopup()">
                 Close Popup
             </button>
         </div>
@@ -11,9 +11,7 @@
 
 <script>
 export default({
-    setup() {
-        
-    },
+    props: ['TogglePopup']
 })
 </script>
 
@@ -25,7 +23,7 @@ export default({
     right: 0;
     bottom: 0;
     z-index: 99;
-    background-color: rgba(0,0,0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 
     display: flex;
     align-items: center;
