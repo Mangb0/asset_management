@@ -71,7 +71,7 @@ export default {
     const moveTo = (signal) => {
       if(signal == 0)
         router.push('/asset');
-      else router.push('/signup');
+      else router.push('/test');
     }
 
     const submit = () => {
