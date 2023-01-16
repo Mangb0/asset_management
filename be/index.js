@@ -143,6 +143,27 @@ app.post("/api/assets", async (req, res) => {
     res.send(result);
 })
 
+app.post("/api/asseets", async (req, res) => {
+    console.log(req.body);
+
+    const date = new Date(req.body.date);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() +1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const dateStr = year + '-' + month + '-' + day;
+    
+    await database.run(`INSERT INTO wallet (userno, income, money, date) VALUES (?, ?, ?, ?)`, [req.body.userno, req.body.selected, req.body.money, dateStr]);
+    
+    if(req.body.selected == 0) {
+      await database.run(`UPDATE user SET money = money + ? where userno = ?`, [req.body.money, req.body.userno]);
+      console.log("입금");
+    }else if(req.body.selected == 1) {
+      await database.run(`UPDATE user SET money = money - ? where userno = ?`, [req.body.money, req.body.userno]);
+      console.log("출금");
+    }
+
+})
+
 app.put("/api/assets/:changeno", async (req, res) => {
     await database.run(`UPDATE wallet SET money = ? where changeno = ?`, [req.body.content, req.params.changeno]);
     const result = await database.run("SELECT * FROM wallet");
