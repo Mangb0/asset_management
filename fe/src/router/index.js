@@ -5,6 +5,7 @@ import Signup from "../view/SignupView.vue";
 import Home from "../view/HomeView.vue";
 import Test from "../view/PopupTest.vue";
 import Popup from "../view/PopView.vue";
+import Ranking from "../view/RankingView.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/popup",
     name: "Popup",
     component: Popup
+  },
+  {
+    path: "/ranking", 
+    name: "Ranking",
+    component: Ranking
   }
   
 ];

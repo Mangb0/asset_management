@@ -1,8 +1,10 @@
 <template>
     <div class="asset" v-if="$store.state.account.userno">
         <div class="act">
-            <button class="btn btn-primary" @click="add()">+ 추가</button>
-            <button class="btn btn-primary" @click="pagelink()">+ 이동</button>
+            <button class="btn btn-primary" @click="TogglePopup('buttonTrigger')">+ 추가</button>
+            <popupVue v-if="popupTriggers.buttonTrigger" :TogglePopup="() => TogglePopup('buttonTrigger')">
+              <h2>popup</h2>
+            </popupVue>
 
         </div>
         <div>
@@ -11,6 +13,10 @@
         <ul>
             <li v-for="d in state.data" :key="d.changeno" @click="edit(d.changeno)">{{ d.money }}</li>
         </ul>
+        
+      <popupVue v-if="popupTriggers.buttonTrigger" :TogglePopup="() => TogglePopup('buttonTrigger')">
+        <h2>popup</h2>
+      </popupVue>
     </div>
     <div v-else>
         <div>로그인 후 확인하실 수 있습니다.</div>
@@ -18,8 +24,11 @@
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive } from 'vue';
+import { ref } from 'vue';
 import axios from "axios";
+import popupVue from './PopView.vue';
+
 export default {
     setup() {
         const state = reactive({
@@ -30,10 +39,6 @@ export default {
             },
             data: []
         });
-
-        const pagelink = () => {
-            this.$router.push('/login');
-        }
 
         const add = () => {
             const content = prompt("내용을 입력해주세요.");
@@ -48,21 +53,40 @@ export default {
 
         const edit = (changeno) => {
             const content = prompt("내용을 입력해주세요", state.data.find(d=>d.changeno === changeno).money);
-            axios.put("/api/assets/" + changeno, { content }).then((res) => {
+            if(content) {
+              axios.put("/api/assets/" + changeno, { content }).then((res) => {
                 state.data = res.data;
-            });
+              });
+            }else console.log("not changed");
+
         };
 
         axios.get("/api/assets").then((res) => {
             state.data = res.data;
+            console.log("get assets");
         });
 
         axios.get("/api/account").then((res) => {
             state.account = res.data;
+            console.log("get account");
         })
 
-        return { state, add, edit, pagelink };
+            
+        const popupTriggers = ref({
+          buttonTrigger: false,
+        });
+        
+        const TogglePopup = (trigger) => {
+          popupTriggers.value[trigger] = !popupTriggers.value[trigger];
+
+        }
+        
+        return { state, add, edit, popupTriggers, TogglePopup };
+
     },
+
+    components: { popupVue }
+
 }
 </script>
 

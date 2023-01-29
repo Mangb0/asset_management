@@ -24,7 +24,7 @@
                 <button class="popup-close" @click="TogglePopup()">
                     Close Popup
                 </button>
-                <button class="btn btn-primary" @click="add()">+ 추가</button>
+                <button class="btn btn-primary" @click="[add(), TogglePopup()]">+ 추가</button>
             </div>
         </div>
     </div>

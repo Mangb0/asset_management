@@ -166,7 +166,7 @@ app.post("/api/asseets", async (req, res) => {
 
 app.put("/api/assets/:changeno", async (req, res) => {
     await database.run(`UPDATE wallet SET money = ? where changeno = ?`, [req.body.content, req.params.changeno]);
-    const result = await database.run("SELECT * FROM wallet");
+    const result = await database.run(`SELECT * FROM wallet where userno = ?`, [req.body.userno]);
     res.send(result);
 })
 
@@ -180,6 +180,11 @@ app.delete('/api/account', (req, res) => {
 
     res.sendStatus(200);
 })
+
+app.get('/api/ranking', async (req, res) => {
+  const result = await database.run(`SELECT * FROM user ORDER BY money DESC`);
+  res.send(result);
+});
 
 app.listen(port, () => {
     console.log('Example app listening at http://localhost:${port}');
