@@ -54,7 +54,7 @@ export default {
         const edit = (changeno) => {
             const content = prompt("내용을 입력해주세요", state.data.find(d=>d.changeno === changeno).money);
             if(content) {
-              axios.put("/api/assets/" + changeno, { content }).then((res) => {
+              axios.put("/api/assets/" + changeno, { content, userno: state.account.userno }).then((res) => {
                 state.data = res.data;
               });
             }else console.log("not changed");

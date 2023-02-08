@@ -165,6 +165,24 @@ app.post("/api/asseets", async (req, res) => {
 })
 
 app.put("/api/assets/:changeno", async (req, res) => {
+    let money = [];
+    let changemoney = await database.run(`SELECT money, income FROM wallet where changeno = ?`, [req.params.changeno]);
+
+    console.log(changemoney);
+    console.log(changemoney[0].money);
+    money.push(changemoney[0].money);
+    money.push(Number(req.body.content));
+    if(changemoney[0].income==0) {
+      await database.run(`UPDATE user SET money = money - ? where userno = ?`, [money[0]-money[1], req.body.userno]);  
+      console.log("income");
+    }
+    else if(changemoney[0].income==1) {
+      await database.run(`UPDATE user SET money = money + ? where userno = ?`, [money[0]-money[1], req.body.userno]);  
+      console.log("income");
+    }
+    console.log(money[0]-money[1]);
+    console.log(req.params);
+    console.log(req.body);
     await database.run(`UPDATE wallet SET money = ? where changeno = ?`, [req.body.content, req.params.changeno]);
     const result = await database.run(`SELECT * FROM wallet where userno = ?`, [req.body.userno]);
     res.send(result);
@@ -183,6 +201,11 @@ app.delete('/api/account', (req, res) => {
 
 app.get('/api/ranking', async (req, res) => {
   const result = await database.run(`SELECT * FROM user ORDER BY money DESC`);
+  res.send(result);
+});
+
+app.get('/api/board', async (req, res) => {
+  const result = await database.run(`SELECT * FROM board`);
   res.send(result);
 });
 

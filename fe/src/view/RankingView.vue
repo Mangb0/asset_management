@@ -5,7 +5,7 @@
 
       </div>
       <div>
-          현재 자산 : {{ state.account.money }}
+          현재 자산 랭킹 : {{ state.account.money }}
       </div>
       <ul>
           <li v-for="d in state.data" :key="d.changeno" @click="edit(d.changeno)">{{ d.name }}</li>
