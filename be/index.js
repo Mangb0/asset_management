@@ -30,7 +30,7 @@ app.post("/api/checkId", async (req, res) => {
     }
 })
 
-app.get('/api/account', (req, res) => {
+app.get('/api/account', async (req, res) => {
     // 쿠키 확인
     // if(req.cookies && req.cookies.account) {
     //     const user = JSON.parse(req.cookies.account);
@@ -47,12 +47,16 @@ app.get('/api/account', (req, res) => {
                 return res.sendStatus(401);
             }
 
-            res.send(decoded);
+            userno = decoded.userno;
         });
     }
     else {
         return res.sendStatus(401);
     }
+    
+    const result = await database.run(`SELECT userno, name, money FROM user WHERE userno=(?)`, [userno]);
+    console.log(result);
+    res.send(result[0]);
 });
 
 app.post("/api/signup", async (req, res) => {

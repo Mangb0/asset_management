@@ -3,17 +3,17 @@
       <h2>게시판</h2>
       <p>각종 정보들을 올릴 수 있는 게시판입니다.</p>
       <div class="frame_cont">
-        <ul>
+        <ul class="board_list">
             <li v-for="d in state.data" :key="d.boardno">
               <span class="num"> {{ d.boardno }}</span>
               <span class="title">
                 <a href="" @click="s">{{ d.title }}</a>
               </span> 
-              <div class="info">
+              <div class="summary_info">
                 <span class="view">
-                  <i class="ri-eye-line"></i>
-                  <span>{{ d.hits }}</span>
+                  <i class="eye-icon"></i>
                 </span>
+                <span>{{ d.hits }}</span>
                 <span class="writer">{{ d.writer }}</span>
               </div>
             </li> <!-- @click="edit(d.changeno)" -->
@@ -93,6 +93,27 @@ export default {
             padding: 15px;
             margin: 5px;
             border: 1px solid #eee;
+            .view {
+              
+              min-width: 20;
+              display: inline-flex;
+              width: 60px;
+              align-items: center;
+              margin-right: 26px;
+              font-size: 15px;
+              font-weight: 400;
+              line-height: 1.46;
+              letter-spacing: -0.05em;
+              color: #ABB0BB;
+            }
+            span {
+              
+              font-size: 19px;
+              display: inline-block;
+              padding: 25px 0;
+              vertical-align: middle;
+              line-height: 1.3;
+            }
         }
     }
 }

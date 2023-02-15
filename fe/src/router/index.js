@@ -7,6 +7,7 @@ import Test from "../view/PopupTest.vue";
 import Popup from "../view/PopView.vue";
 import Ranking from "../view/RankingView.vue";
 import Board from "../view/BoardView.vue";
+import BoardWrite from "../view/BoardWrite.vue";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/board",
     name: "Board",
     component: Board
+  },
+  {
+    path: "/write",
+    name: "BoardWrite",
+    component: BoardWrite
   }
   
 ];
