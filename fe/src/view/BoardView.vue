@@ -1,5 +1,5 @@
 <template>
-    <div class="asset" v-if="$store.state.account.userno">
+    <div class="asset">  <!-- v-if="$store.state.account.userno" -->
       <h2>게시판</h2>
       <p>각종 정보들을 올릴 수 있는 게시판입니다.</p>
       <div class="frame_cont">
@@ -19,17 +19,44 @@
             </li> <!-- @click="edit(d.changeno)" -->
             
         </ul>
+        <v-table>
+          <thead>
+            <tr>
+              <th class="text-left">
+                번호
+              </th>
+              <th class="text-left">
+                제목
+              </th>
+              <th class="text-left">
+                작성자
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="d in state.data"
+              :key="d.boardno"
+            >
+              <td>{{ d.boardno }}</td>
+              <td><a @click="onClickDetail(`${d.boardno}`)">{{ d.title }}</a></td>
+              <td>{{ d.writer }}</td>
+            </tr>
+          </tbody>
+        </v-table>
+        <v-btn color="secondary" @click="onClickWrite()">글쓰기</v-btn>
       </div>
         
     </div>
-    <div v-else>
+    <!-- <div v-else>
         <div>로그인 후 확인하실 수 있습니다.</div>
-    </div>
+    </div> -->
 </template>
 
 <script>
 import { reactive } from 'vue';
 import axios from "axios";
+import router from "@/router/index";
 
 export default {
     setup() {
@@ -39,7 +66,8 @@ export default {
                 name: "",
                 money: null
             },
-            data: []
+            data: [],
+
         });
 
         axios.get("/api/board").then((res) => {
@@ -52,9 +80,19 @@ export default {
             state.account = res.data;
             console.log("get account");
         })
-
         
-        return { state };
+        const onClickWrite = () => {
+          router.push('/write');
+        }
+
+        const onClickDetail = (boardNo) => {
+          router.push({
+            path: '/board/detail',
+            query: state.data[boardNo-1]
+          })
+        }
+        
+        return { state, onClickWrite, onClickDetail };
 
     }
 }

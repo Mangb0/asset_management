@@ -1,8 +1,14 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from '@/router/index'
 import store from '@/store/store'
+import router from './router'
+import vuetify from './plugins/vuetify'
+import { loadFonts } from './plugins/webfontloader'
 
-const app = createApp(App)
+loadFonts()
 
-app.use(store).use(router).mount('#app')
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(vuetify)
+  .mount('#app')

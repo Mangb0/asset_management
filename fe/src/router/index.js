@@ -8,6 +8,7 @@ import Popup from "../view/PopView.vue";
 import Ranking from "../view/RankingView.vue";
 import Board from "../view/BoardView.vue";
 import BoardWrite from "../view/BoardWrite.vue";
+import BoardDetail from "../view/BoardDetail.vue";
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     path: "/write",
     name: "BoardWrite",
     component: BoardWrite
+  },
+  {
+    path: '/board/detail',
+    name: 'BoardDetail',
+    component: BoardDetail
   }
   
 ];
