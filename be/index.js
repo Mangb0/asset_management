@@ -28,7 +28,7 @@ app.post("/api/checkId", async (req, res) => {
     }else {
         res.sendStatus(401);
     }
-})
+});
 
 app.get('/api/account', async (req, res) => {
     // 쿠키 확인
@@ -84,7 +84,7 @@ app.post("/api/signup", async (req, res) => {
     } else {
         res.sendStatus(404);
     }
-})
+});
 
 
 app.post('/api/account', async (req, res) => {
@@ -145,7 +145,7 @@ app.post("/api/assets", async (req, res) => {
     await database.run(`INSERT INTO wallet (userno, income, money, date) VALUES (?, ?, ?, ?)`, [1, 0, req.body.content, dateStr]);
     const result = await database.run("SELECT * FROM wallet");
     res.send(result);
-})
+});
 
 app.post("/api/asseets", async (req, res) => {
     console.log(req.body);
@@ -166,7 +166,7 @@ app.post("/api/asseets", async (req, res) => {
       console.log("출금");
     }
 
-})
+});
 
 app.put("/api/assets/:changeno", async (req, res) => {
     let money = [];
@@ -190,7 +190,7 @@ app.put("/api/assets/:changeno", async (req, res) => {
     await database.run(`UPDATE wallet SET money = ? where changeno = ?`, [req.body.content, req.params.changeno]);
     const result = await database.run(`SELECT * FROM wallet where userno = ?`, [req.body.userno]);
     res.send(result);
-})
+});
 
 app.delete('/api/account', (req, res) => {
     // if(req.cookies && req.cookies.account) {
@@ -201,7 +201,7 @@ app.delete('/api/account', (req, res) => {
     }
 
     res.sendStatus(200);
-})
+});
 
 app.get('/api/ranking', async (req, res) => {
   const result = await database.run(`SELECT * FROM user ORDER BY money DESC`);
@@ -211,6 +211,17 @@ app.get('/api/ranking', async (req, res) => {
 app.get('/api/board', async (req, res) => {
   const result = await database.run(`SELECT * FROM board`);
   res.send(result);
+});
+
+app.post("/api/board", async (req, res) => {
+  console.log(req.body);
+  
+  if(req.body.title !=='' || req.body.content !== '') {
+    await database.run(`INSERT INTO board (title, content, writer, userno) VALUES (?, ?, ?, ?)`, [req.body.title, req.body.content, req.body.writer, req.body.userno]);
+    res.sendStatus(200);
+  }else {
+    res.sendStatus(401);
+  }
 });
 
 app.listen(port, () => {

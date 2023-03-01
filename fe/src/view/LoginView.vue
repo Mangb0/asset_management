@@ -49,7 +49,7 @@ export default {
 
     const submit = () => {
 
-      axios.post("/api/account", state.form).then((res) => {
+      axios.post("/api/account", state.form).then(async (res) => {
         alert("로그인 성공");
         // state.account = res.data; 필요 없어짐
         // router.push("/");
@@ -59,7 +59,7 @@ export default {
         // console.log(state.account);
         console.log(store.state.account.userno);
         
-        router.push('/');
+        await router.push('/');
       }).catch(() => {
         alert("로그인 실패");
       });

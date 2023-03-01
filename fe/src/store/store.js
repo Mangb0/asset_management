@@ -4,7 +4,9 @@ const store = createStore({
     state () {
         return {
             account: {
-                userno: 0
+                userno: 0,
+                name: "",
+
             }
         }
     },

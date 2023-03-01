@@ -49,9 +49,7 @@
 </template>
 
 <script>
-import axios from "axios";
 import { reactive } from "vue";
-import store from "@/store/store";
 import router from "@/router/index";
 export default {
   setup() {
@@ -78,23 +76,7 @@ export default {
       else router.push('/board');
     }
 
-    const submit = () => {
-
-      axios.post("/api/account", state.form).then((res) => {
-        alert("로그인 성공");
-        state.account = res.data;
-        store.commit('setAccount', res.data);
-        router.push({path: "/"});
-      }).catch(() => {
-        alert("로그인 실패");
-      });
-    };
-
-    axios.get("/api/account/").then((res) => {
-      state.account = res.data;
-    });
-
-    return { state, submit, moveTo };
+    return { state, moveTo };
   }
 };
 </script>
