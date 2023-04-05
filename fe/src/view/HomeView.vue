@@ -1,51 +1,130 @@
 <template>
-    <div>
-        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-            <div class="carousel-item active">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+  <div>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <v-img
+            class="bd-placeholder-img"
+            width="100%"
+            height="100%"
+            :src="require(`@/assets/bene_img.png`)"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <rect width="100%" height="100%" fill="#777" />
+          </v-img>
 
-                <div class="container">
-                <div class="carousel-caption text-middle">
-                    <h1 v-if="$store.state.account.userno">{{state.account.name}}</h1>
-                    <p>Some representative placeholder content for the first slide of the carousel.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
-                </div>
-                </div>
+          <div class="container">
+            <div class="carousel-caption text-middle">
+              <h1 v-if="$store.state.account.userno">
+                {{ state.account.name }}
+              </h1>
+              <p>
+                Some representative placeholder content for the first slide of
+                the carousel.
+              </p>
+              <p>
+                <a class="btn btn-lg btn-primary" href="#">Sign up today</a>
+              </p>
             </div>
-            
-            </div>
+          </div>
+          s
         </div>
-        <div class="container list">
-
-            <div class="row">
-            <div class="col-lg-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" fill="currentColor" class="bi bi-1-circle" viewBox="0 0 16 16">
-                    <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"/>
-                </svg>
-                <h2 class="fw-normal"><div v-if="!$store.state.account.userno">login 필요</div><div v-else>Asset</div></h2>
-                <p><a v-if="!$store.state.account.userno" class="btn btn-secondary" @click="moveTo(3)">Login &raquo;</a><a v-else class="btn btn-secondary" @click="moveTo(0)">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
-                <h2 class="fw-normal">랭킹</h2>
-                <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-                <p><a class="btn btn-secondary" @click="moveTo(1)">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
-                <h2 class="fw-normal">게시판</h2>
-                <p>And lastly this, the third column of representative placeholder content.</p>
-                <p><a class="btn btn-secondary" @click="moveTo(2)">View details &raquo;</a></p>
-                <!-- href="#" -->
-            </div><!-- /.col-lg-4 -->
-            </div><!-- /.row -->
-
-
-        </div><!-- /.container -->
+      </div>
     </div>
+    <div class="container list">
+      <div class="row">
+        <div class="col-lg-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="140"
+            height="140"
+            fill="currentColor"
+            class="bi bi-1-circle"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"
+            />
+          </svg>
+          <h2 class="fw-normal">
+            <div v-if="!$store.state.account.userno">login 필요</div>
+            <div v-else>Asset</div>
+          </h2>
+          <p>
+            <a
+              v-if="!$store.state.account.userno"
+              class="btn btn-secondary"
+              @click="moveTo(3)"
+              >Login &raquo;</a
+            ><a v-else class="btn btn-secondary" @click="moveTo(0)"
+              >View details &raquo;</a
+            >
+          </p>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <svg
+            class="bd-placeholder-img rounded-circle"
+            width="140"
+            height="140"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Placeholder: 140x140"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#777" />
+            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+          </svg>
+
+          <h2 class="fw-normal">랭킹</h2>
+          <p>
+            Another exciting bit of representative placeholder content. This
+            time, we've moved on to the second column.
+          </p>
+          <p>
+            <a class="btn btn-secondary" @click="moveTo(1)"
+              >View details &raquo;</a
+            >
+          </p>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <svg
+            class="bd-placeholder-img rounded-circle"
+            width="140"
+            height="140"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Placeholder: 140x140"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          >
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#777" />
+            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+          </svg>
+
+          <h2 class="fw-normal">게시판</h2>
+          <p>
+            And lastly this, the third column of representative placeholder
+            content.
+          </p>
+          <p>
+            <a class="btn btn-secondary" @click="moveTo(2)"
+              >View details &raquo;</a
+            >
+          </p>
+          <!-- href="#" -->
+        </div>
+        <!-- /.col-lg-4 -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container -->
+  </div>
 </template>
 
 <script>
@@ -57,27 +136,23 @@ export default {
       account: {
         userno: null,
         name: "",
-        money: null
+        money: null,
       },
       form: {
         loginId: "",
-        loginPw: ""
-      }
+        loginPw: "",
+      },
     });
-    
 
     const moveTo = (signal) => {
-      if(signal == 0)
-        router.push('/asset');
-      else if(signal == 1)
-        router.push('/ranking');
-      else if(signal == 3)
-        router.push('/login');
-      else router.push('/board');
-    }
+      if (signal == 0) router.push("/asset");
+      else if (signal == 1) router.push("/ranking");
+      else if (signal == 3) router.push("/login");
+      else router.push("/board");
+    };
 
     return { state, moveTo };
-  }
+  },
 };
 </script>
 
@@ -91,7 +166,6 @@ body {
   padding-bottom: 3rem;
   color: #5a5a5a;
 }
-
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -111,7 +185,6 @@ body {
   height: 32rem;
 }
 
-
 /* MARKETING CONTENT
 -------------------------------------------------- */
 
@@ -126,7 +199,6 @@ body {
 }
 /* rtl:end:ignore */
 
-
 /* Featurettes
 ------------------------- */
 
@@ -137,7 +209,7 @@ body {
 /* Thin out the marketing headings */
 /* rtl:begin:remove */
 .featurette-heading {
-  letter-spacing: -.05rem;
+  letter-spacing: -0.05rem;
 }
 
 /* rtl:end:remove */
