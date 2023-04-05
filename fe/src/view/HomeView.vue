@@ -21,7 +21,7 @@
               </h1>
               <p>소비 패턴을 파악하고, 돈을 더 효율적으로 사용하세요!</p>
               <p>
-                <a class="btn btn-lg btn-primary" href="#">Sign up today</a>
+                <a class="btn btn-lg btn-primary" href="#">Log in Now!</a>
               </p>
             </div>
           </div>
@@ -32,18 +32,8 @@
     <div class="container list">
       <div class="row">
         <div class="col-lg-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="140"
-            height="140"
-            fill="currentColor"
-            class="bi bi-1-circle"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z"
-            />
-          </svg>
+          <v-icon icon="mdi-wallet-outline" size="140" />
+
           <h2 class="fw-normal">
             <div v-if="!$store.state.account.userno">login 필요</div>
             <div v-else>Asset</div>
@@ -61,20 +51,7 @@
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#777" />
-            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-          </svg>
+          <v-icon icon="mdi-crown-outline" size="140" />
 
           <h2 class="fw-normal">랭킹</h2>
           <p>
@@ -89,20 +66,7 @@
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: 140x140"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#777" />
-            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-          </svg>
+          <v-icon icon="mdi-bulletin-board" size="140" />
 
           <h2 class="fw-normal">게시판</h2>
           <p>
@@ -122,6 +86,7 @@
 <script>
 import { reactive } from "vue";
 import router from "@/router/index";
+
 export default {
   setup() {
     const state = reactive({
