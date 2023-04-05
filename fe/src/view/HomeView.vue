@@ -19,10 +19,7 @@
               <h1 v-if="$store.state.account.userno">
                 {{ state.account.name }}
               </h1>
-              <p>
-                Some representative placeholder content for the first slide of
-                the carousel.
-              </p>
+              <p>소비 패턴을 파악하고, 돈을 더 효율적으로 사용하세요!</p>
               <p>
                 <a class="btn btn-lg btn-primary" href="#">Sign up today</a>
               </p>
@@ -81,8 +78,8 @@
 
           <h2 class="fw-normal">랭킹</h2>
           <p>
-            Another exciting bit of representative placeholder content. This
-            time, we've moved on to the second column.
+            절약의 달인들을 소개하는 랭킹 페이지, 이번 달 소비가 가장 적은
+            사람들이 누구인지 확인하세요!
           </p>
           <p>
             <a class="btn btn-secondary" @click="moveTo(1)"
@@ -109,21 +106,16 @@
 
           <h2 class="fw-normal">게시판</h2>
           <p>
-            And lastly this, the third column of representative placeholder
-            content.
+            더 나은 미래를 위한 절약의 시작, 자신들만의 비결을 공유해보세요!
           </p>
           <p>
             <a class="btn btn-secondary" @click="moveTo(2)"
               >View details &raquo;</a
             >
           </p>
-          <!-- href="#" -->
         </div>
-        <!-- /.col-lg-4 -->
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container -->
   </div>
 </template>
 
