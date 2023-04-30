@@ -46,7 +46,7 @@ export default {
 
         console.log(router.query)
 
-        return { state, };
+        return { state };
 
     }
 }
