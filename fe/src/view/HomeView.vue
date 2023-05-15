@@ -20,7 +20,7 @@
                 {{ state.account.name }}
               </h1>
               <p>소비 패턴을 파악하고, 돈을 더 효율적으로 사용하세요!</p>
-              <p>
+              <p v-if="!$store.state.account.userno">
                 <a class="btn btn-lg btn-primary" href="#">Log in Now!</a>
               </p>
             </div>
